@@ -1,0 +1,39 @@
+
+/*====================================================*/
+/* FILE /plugins/list-plugins/css/css_front.css*/
+/*====================================================*/
+div.screenshot {
+	text-align: center;
+}
+
+div.screenshot span {
+	display: inline-block; 
+	vertical-align: middle;
+}
+
+p.download {
+	text-align: right;
+}
+
+div.screenshot span img {
+	margin: 0 10px;
+}
+
+div.screenshot span a, div.screenshot span a:hover, div.screenshot span a:link, div.screenshot span a:visited {
+	border-bottom:none;
+	text-decoration:none;
+}
+
+
+div.space {
+	height:70px;
+}
+
+/*====================================================*/
+/* FILE /sedlex/inline_styles/7a3b4bb4b0471223604dbe3ad44ff4db.css*/
+/*====================================================*/
+.plugin {
+border-bottom: 1px solid #CCC;
+}
+.plugin-download p.download { text-align: left; } 
+.plugin-download p.download img { display: none; } 

@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Viper007Bond
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/yourls-shorturl-widget\n"
+"POT-Creation-Date: 2009-11-26 09:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: yourls-shorturl-widget.php:32
+msgid "Display the short URL to the current post or page."
+msgstr ""
+
+#: yourls-shorturl-widget.php:34
+msgid "YOURLS: Short URL"
+msgstr ""
+
+#: yourls-shorturl-widget.php:47
+msgid "post"
+msgstr ""
+
+#: yourls-shorturl-widget.php:49
+msgid "page"
+msgstr ""
+
+#: yourls-shorturl-widget.php:82
+#, php-format
+msgid ""
+"The <a href=\"%s\">YOURLS: WordPress to Twitter</a> plugin is not currently "
+"installed and activated! This widget requires the plugin to function.</p>"
+msgstr ""
+
+#: yourls-shorturl-widget.php:90
+msgid "Title:"
+msgstr ""
+
+#: yourls-shorturl-widget.php:95
+msgid ""
+"<code>[url]</code> will be replaced with the short URL and <code>[type]</"
+"code> will be replaced with the content type (post or page)."
+msgstr ""
+
+#: yourls-shorturl-widget.php:97
+msgid "Automatically add paragraphs."
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "YOURLS: Short URL Widget"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://www.viper007bond.com/wordpress-plugins/yourls-shorturl-widget/"
+msgstr ""
+
+#. Description of an extension
+msgid ""
+"Creates a widget that outputs the short URL to the current post or page. "
+"Requires the <a href=\"http://wordpress.org/extend/plugins/yourls-wordpress-"
+"to-twitter/\">YOURLS: WordPress to Twitter</a> plugin."
+msgstr ""
+
+#. Author of an extension
+msgid "Viper007Bond"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://www.viper007bond.com/"
+msgstr ""

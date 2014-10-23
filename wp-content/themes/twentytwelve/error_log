@@ -1,0 +1,11 @@
+[15-Aug-2013 22:00:59] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/tag.php on line 14
+[27-Aug-2013 16:52:12] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/index.php on line 17
+[03-Sep-2013 07:34:19] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/404.php on line 10
+[29-Oct-2013 02:28:56] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/tag.php on line 14
+[27-Dec-2013 23:39:38] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/404.php on line 10
+[25-May-2014 14:45:00] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/tag.php on line 14
+[25-May-2014 16:16:28] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/tag.php on line 14
+[25-May-2014 16:17:43] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/tag.php on line 14
+[31-May-2014 08:24:58] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/404.php on line 10
+[31-May-2014 09:09:01] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/404.php on line 10
+[31-May-2014 09:10:04] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentytwelve/404.php on line 10

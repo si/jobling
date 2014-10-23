@@ -1,0 +1,2 @@
+[01-Jun-2014 17:40:10] PHP Fatal error:  Call to undefined function plugins_url() in /home/joblin/public_html/wp-content/plugins/mailchimp/mailchimp.php on line 1479
+[01-Jun-2014 17:40:13] PHP Fatal error:  Call to undefined function plugins_url() in /home/joblin/public_html/wp-content/plugins/mailchimp/mailchimp.php on line 1479

@@ -1,0 +1,74 @@
+/* ============================================ SHORTCODES ============================================*/
+
+.half_wide, .third_wide, .twothird_wide, .quarter_wide, .threequarter_wide {
+	margin:0 20px 20px 0;
+	float:left;
+}
+
+.half_wide {
+	width:280px;
+}
+
+.third_wide {
+	width:180px;
+}
+
+.twothird_wide {
+	width:380px;
+}
+
+.quarter_wide {
+	width:130px;
+}
+
+.threequarter_wide {
+	width:430px;
+}
+
+.alert, .warning {
+	float:left;
+	padding:19px 19px 4px 19px;
+	margin:0 0 20px;
+	color:#252525;
+	text-shadow:none;
+}
+
+.alert {
+	border:1px solid #CBC534;
+	background:#F9F9D5;
+}
+
+.warning {
+	border:1px solid #CB3434;
+	background:#F8B0B0;
+}
+
+.buttonleft {
+	float:left;
+	margin:5px 40px 15px 0;
+}
+
+.buttonright {
+	float:right;
+	margin:5px 0 15px 40px;
+}
+
+.page-template-page-full-width-php .half_wide {
+	width:450px;
+}
+
+.page-template-page-full-width-php .third_wide {
+	width:293px;
+}
+
+.page-template-page-full-width-php .twothird_wide {
+	width:607px;
+}
+
+.page-template-page-full-width-php .quarter_wide {
+	width:215px;
+}
+
+.page-template-page-full-width-php .threequarter_wide {
+	width:685px;
+}

@@ -1,0 +1,3 @@
+[17-Jan-2013 14:38:00] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/modest/index.php on line 1
+[22-Jan-2014 20:59:54] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/modest/404.php on line 1
+[22-Jan-2014 21:14:15] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/modest/404.php on line 1

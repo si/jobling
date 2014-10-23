@@ -1,0 +1,72 @@
+<?php
+// Load form data into array.
+$data = $_REQUEST;
+
+// Create XML object and root node.
+$requestForm = new SimpleXMLElement('<requestForm/>');
+
+// Add child XML node called "devID" and populate it with the value from the devID form element.
+$requestForm->addChild('devID', $data['devID']);
+
+// Add another child node "dateOfEnquiry" to root "requestForm" node and set to current date.
+$requestForm->addChild('dateOfEnquiry',date('Y-m-d'));
+
+// Create an empty contactPrimary node and assign it to a variable.
+$contactPrimary = $requestForm->addChild('contactPrimary');
+
+// Add child "Title" node to <contactPrimary> and populate with "title" form input.
+$contactPrimary->addChild('title', $data['title']);
+
+
+// [Repeat for all your form variables]
+
+// Output XML to a local file.
+$requestForm->asXML('attachment.xml');
+
+// Attach file to an email.
+$name = "Name goes here";
+$email = "someome@anadress.com";
+
+$to = "$name <$email>";
+$from = "John-Smith ";
+$subject = "Here is your attachment";
+
+$fileatt = "attachment.xml";  // Name of the XML you saved.
+$fileatttype = "text/xml";
+$fileattname = "new_file_name.xml";
+
+$headers = "From: $from";
+
+$file = fopen($fileatt, 'rb');
+$data = fread($file, filesize($fileatt));
+fclose($file);
+
+$semi_rand = md5(time());
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+$headers .= "\nMIME-Version: 1.0\n" .
+  "Content-Type: multipart/mixed;\n" .
+  " boundary=\"{$mime_boundary}\"";
+$message = "This is a multi-part message in MIME format.\n\n" .
+  "-{$mime_boundary}\n" .
+  "Content-Type: text/plain; charset=\"iso-8859-1\n" .
+  "Content-Transfer-Encoding: 7bit\n\n" .
+  $message .= "\n\n";
+
+$data = chunk_split(base64_encode($data));
+
+$message .= "–{$mime_boundary}\n" .
+  "Content-Type: {$fileatttype};\n" .
+  " name=\"{$fileattname}\"\n" .
+  "Content-Disposition: attachment;\n" .
+  " filename=\"{$fileattname}\"\n" .
+  "Content-Transfer-Encoding: base64\n\n" .
+  $data . "\n\n" .
+  "-{$mime_boundary}-\n";
+
+if(mail($to, $subject, $message, $headers)) {
+  echo "The email was sent.";
+} else {
+  echo "There was an error sending the mail.";
+}
+
+?>

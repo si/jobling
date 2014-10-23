@@ -1,0 +1,21 @@
+@media screen and (max-width: 480px) {
+
+	html {
+		-webkit-text-size-adjust: none;
+	}
+
+  div#userLogin,
+  div#contentContainer,
+  div#disclaimersContainer {
+    float: none;
+    width: 96%;
+    display: block;
+    margin: 0 2% 16px;
+  }
+
+  div#tools>div {
+    width: 96%;
+    margin: 0 auto 16px;
+  }
+
+}

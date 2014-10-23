@@ -1,0 +1,493 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Text in function
+#: modest/index.php:63
+#: modest/index.php:97
+#: modest/front-page.php:153
+msgid ""
+msgstr ""
+
+#. Text in function
+#: modest/index.php:63
+#: modest/index.php:97
+#: modest/front-page.php:153
+msgid "%"
+msgstr ""
+
+#. Text in function
+#: modest/archive.php:43
+#: modest/search.php:24
+msgid "% Comments"
+msgstr ""
+
+#. Text in function
+#: modest/index.php:133
+#: modest/archive.php:53
+#: modest/search.php:34
+msgid "&laquo; Older Entries"
+msgstr ""
+
+#. Text in function
+#: modest/comments.php:84
+msgid "(required - never shared)"
+msgstr ""
+
+#. Text in function
+#: modest/comments.php:79
+msgid "(required)"
+msgstr ""
+
+#. Text in function
+#: modest/index.php:63
+#: modest/index.php:97
+#: modest/front-page.php:153
+msgid "0"
+msgstr ""
+
+#. Text in function
+#: modest/index.php:63
+#: modest/index.php:97
+#: modest/front-page.php:153
+msgid "1"
+msgstr ""
+
+#. Text in function
+#: modest/archive.php:43
+#: modest/search.php:24
+msgid "1 Comment"
+msgstr ""
+
+#. Text in echo
+#: modest/404.php:2
+msgid "404"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:394
+msgid "A widget that will display a specified user\\'s gravatar, display name, bio, and link to their author post archive."
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-4.php:18
+#: modest/page-portfolio-5.php:18
+#: modest/page-portfolio-3.php:18
+#: modest/page-portfolio-2.php:18
+msgid "All"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:11
+#: modest/archive.php:13
+#: modest/archive.php:15
+msgid "Archive for"
+msgstr ""
+
+#. Text in echo
+#: modest/index.php:115
+#: modest/single.php:82
+msgid "Author"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:19
+msgid "Blog archives "
+msgstr ""
+
+#. Text in function
+#: modest/comments.php:106
+msgid "Cancel reply"
+msgstr ""
+
+#. Text in echo
+#: modest/index.php:111
+#: modest/single.php:77
+#: modest/front-page.php:164
+msgid "Category"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:101
+msgid "Comment"
+msgstr ""
+
+#. Text in function
+#: modest/archive.php:43
+#: modest/search.php:24
+msgid "Comments Closed"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:55
+msgid "Comments are closed."
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Company:"
+msgstr ""
+
+#. Text in echo
+#: modest/footer.php:44
+msgid "Design Crumbs"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Displays a testimonial along with a name, company, and URL."
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Displays your recent posts along with a thumbnail."
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:732
+#: modest/functions.php:750
+msgid "Edit"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:84
+msgid "Email"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:345
+msgid "Extra profile information"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:394
+msgid "Featured User"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:47
+msgid "Install now."
+msgstr ""
+
+#. Text in echo
+#: modest/front-page.php:141
+msgid "Latest Blog Posts"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:71
+msgid "Leave Your Comment"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:74
+msgid "Log out"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:74
+msgid "Logged in as"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Modest Recent Posts"
+msgstr ""
+
+#. Text in echo
+#: modest/footer.php:44
+msgid "Modest Theme"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:384
+msgid "My Twitter"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:386
+msgid "My Website"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:79
+msgid "Name"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Name:"
+msgstr ""
+
+#. Text in function
+#: modest/index.php:134
+#: modest/archive.php:54
+#: modest/search.php:35
+msgid "Newer Entries &raquo;"
+msgstr ""
+
+#. Text in function
+#: modest/archive.php:43
+#: modest/search.php:24
+msgid "No Comments"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:715
+msgid "Number of posts to show:"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:354
+msgid "Please enter your Twitter username without the @."
+msgstr ""
+
+#. Text in echo
+#: modest/search.php:42
+msgid "Please try your search again, or navigate around the site with the links on top."
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-4.php:64
+#: modest/index.php:141
+#: modest/archive.php:61
+#: modest/page-portfolio-5.php:63
+#: modest/page-portfolio-3.php:64
+#: modest/404.php:5
+#: modest/page-portfolio-2.php:64
+msgid "Please, try one of the links on top."
+msgstr ""
+
+#. Text in echo
+#: modest/index.php:119
+#: modest/single.php:86
+#: modest/front-page.php:168
+msgid "Post Date"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:37
+#: modest/page-portfolio-3.php:49
+#: modest/front-page.php:47
+#: modest/front-page.php:89
+#: modest/search.php:18
+#: modest/page-portfolio-2.php:49
+msgid "Posted in"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:17
+msgid "Posts by"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:9
+msgid "Posts tagged with"
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-4.php:50
+#: modest/page-portfolio-5.php:50
+#: modest/page-portfolio-3.php:50
+#: modest/front-page.php:51
+#: modest/front-page.php:93
+#: modest/page-portfolio-2.php:50
+msgid "Preview"
+msgstr ""
+
+#. Text in echo
+#: modest/index.php:107
+#: modest/front-page.php:160
+msgid "Read More"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Recent Posts"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:740
+msgid "Reply"
+msgstr ""
+
+#. Text in echo
+#: modest/searchform.php:3
+#: modest/searchform.php:4
+msgid "Search"
+msgstr ""
+
+#. Text in echo
+#: modest/search.php:2
+msgid "Search Results"
+msgstr ""
+
+#. Text in echo
+#: modest/search.php:4
+msgid "Search Results for"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:494
+msgid "Select User:"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:104
+msgid "Send"
+msgstr ""
+
+#. Text in echo
+#: modest/search.php:41
+msgid "Sorry, but we can\\'t find any results for"
+msgstr ""
+
+#. Text in echo
+#: modest/single.php:54
+#: modest/single.php:99
+msgid "Sorry, no posts matched your criteria"
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-4.php:63
+#: modest/index.php:140
+#: modest/archive.php:60
+#: modest/page-portfolio-5.php:62
+#: modest/page-portfolio-3.php:63
+#: modest/404.php:4
+#: modest/page-portfolio-2.php:63
+msgid "Sorry, we can\\'t seem to find what you\\'re looking for."
+msgstr ""
+
+#. Text in function
+#: modest/single.php:46
+#: modest/single.php:71
+msgid "Tagged with "
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Testimonial"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:47
+msgid "The Options Framework plugin is required for this theme to function properly."
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "The Testimonial:"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:9
+msgid "This post is password protected. Enter the password to view comments."
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:376
+msgid "This post was written by"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "Title (Optional):"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:712
+msgid "Title:"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:747
+msgid "Trackback from"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:36
+msgid "Trackbacks"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:350
+msgid "Twitter"
+msgstr ""
+
+#. Text in function
+#: modest/functions.php:507
+msgid "URL:"
+msgstr ""
+
+#. Text in echo
+#: modest/includes/js/modestjs.php:25
+msgid "View Less"
+msgstr ""
+
+#. Text in echo
+#: modest/includes/js/modestjs.php:26
+#: modest/front-page.php:107
+msgid "View More"
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-4.php:51
+#: modest/page-portfolio-3.php:51
+#: modest/front-page.php:52
+#: modest/front-page.php:94
+#: modest/page-portfolio-2.php:51
+msgid "View Post"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:89
+msgid "Website"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:488
+msgid "Widget Title:"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:67
+msgid "You must be"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:736
+msgid "Your comment is awaiting moderation"
+msgstr ""
+
+#. Text in echo
+#: modest/functions.php:732
+msgid "at"
+msgstr ""
+
+#. Text in echo
+#: modest/archive.php:37
+#: modest/footer.php:44
+#: modest/search.php:18
+msgid "by"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:67
+msgid "logged in"
+msgstr ""
+
+#. Text in echo
+#: modest/page-portfolio-3.php:49
+#: modest/front-page.php:47
+#: modest/front-page.php:89
+#: modest/search.php:18
+#: modest/page-portfolio-2.php:49
+msgid "on"
+msgstr ""
+
+#. Text in echo
+#: modest/comments.php:67
+msgid "to post a comment"
+msgstr ""

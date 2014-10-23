@@ -1,0 +1,15 @@
+[17-Aug-2013 00:43:29] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/tag.php on line 10
+[27-Aug-2013 16:30:34] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/index.php on line 15
+[03-Sep-2013 07:35:51] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/404.php on line 10
+[29-Oct-2013 02:28:53] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/tag.php on line 10
+[01-Nov-2013 09:13:00] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/index.php on line 15
+[26-Dec-2013 21:33:05] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/404.php on line 10
+[24-May-2014 23:20:33] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/index.php on line 15
+[25-May-2014 00:42:05] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/index.php on line 15
+[25-May-2014 00:43:21] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/index.php on line 15
+[28-May-2014 21:35:34] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/tag.php on line 10
+[28-May-2014 21:36:42] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/tag.php on line 10
+[29-May-2014 16:49:35] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/tag.php on line 10
+[30-May-2014 12:35:52] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/404.php on line 10
+[30-May-2014 18:05:38] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/404.php on line 10
+[30-May-2014 18:08:20] PHP Fatal error:  Call to undefined function get_header() in /home/joblin/public_html/wp-content/themes/twentyeleven/404.php on line 10

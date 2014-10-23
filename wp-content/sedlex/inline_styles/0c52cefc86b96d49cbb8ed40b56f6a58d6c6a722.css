@@ -1,0 +1,5 @@
+.plugin {
+border-bottom: 1px solid #CCC;
+}
+.plugin-download p.download { text-align: left; } 
+.plugin-download p.download img { display: none; } 

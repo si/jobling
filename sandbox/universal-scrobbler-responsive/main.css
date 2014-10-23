@@ -1,0 +1,152 @@
+div, span, body, h1, h2, h3, table, tr, td, th
+{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body
+{
+	font-family: Tahoma, Verdana, san-serif;
+	font-size: 12px;
+	overflow-x: hidden;
+}
+
+input, select
+{
+	font-family: Tahoma, Verdana, san-serif;
+	font-size: 12px;
+}
+
+h1
+{
+	font-size: 18px;
+	margin: 10px;
+}
+
+h2
+{
+	font-size: 14px;
+}
+
+h3
+{
+	font-size: 12px;
+}
+
+div.artist
+{
+	margin-left: 10px;
+	margin-top: 5px;
+}
+
+div.release, div.track
+{
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
+span.progress
+{
+	color: red;
+}
+
+img.icon
+{
+	border: 0;
+}
+
+div#manualScrobble, div#autoScrobble, div#radioScrobble, div#userScrobble, div#myspaceScrobble, div#joostScrobble, div#libraryScrobble, div#itunesScrobble, div#disclaimers
+{
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+}
+
+div#manualScrobble, div#autoScrobble, div#radioScrobble, div#userScrobble, div#myspaceScrobble, div#joostScrobble, div#libraryScrobble, div#itunesScrobble
+{
+	float: left;
+	display: none;
+}
+
+div#myspaceScrobble
+{
+	max-width: 500px;
+}
+
+img.throbber
+{
+	height: 12px;
+	width: 12px;
+}
+
+div#topBar
+{
+	padding: 5px;
+	background: black;
+}
+
+div#userLogin
+{
+	float: right;
+	color: white;
+	font-weight: bold;
+}
+
+span#spanPassword, span#spanUsername
+{
+	margin-left: 20px;
+}
+
+.clear
+{
+	clear: both; 
+	height: 0px;
+}
+
+div#advertising
+{
+	padding: 10px;
+	text-align: center;
+}
+
+div#mainBody
+{
+	width: 100%;
+	padding: 10px;
+}
+
+div#content
+{
+}
+div#contentContainer
+{
+	width: 60%;
+	vertical-align: top;
+	display: inline-block;
+	text-align: left;
+}
+
+div#disclaimers
+{
+	text-align: left;
+}
+div#disclaimersContainer
+{
+	width: 39%;
+	vertical-align: top;
+	display: inline-block;
+	text-align: right;
+}
+
+div#paypal
+{
+	float: left;
+	padding: 5px 5px 0px 0px;
+}
+
+div#paypal form
+{
+	padding: 0;
+	margin: 0;
+}

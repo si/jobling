@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<title>Universal Scrobbler</title>
+
+<link rel="shortcut icon" href="favicon.ico" />
+
+<script type="text/Javascript" src="jquery-1.2.6.min.js"></script>
+<script type="text/Javascript">
+
+// Preload images
+var plusImage = new Image();
+plusImage.src = "plus.gif";
+var minusImage = new Image();
+minusImage.src = "minus.gif";
+
+var userSongs = null;
+
+function doRadioSearch()
+{
+	radioStationText = document.getElementById('radioStation').value;
+	if (radioStationText != "")
+	{
+        performUserSearch(radioStationText, "radioList", "MainRadio");
+    }
+}
+
+function doUserSearch()
+{
+	userText = document.getElementById('otherUsername').value;
+	if (userText != "")
+	{
+        performUserSearch(userText, "userList", "MainUser");
+    }
+}
+
+function performUserSearch(username, listId, throbberId)
+{
+	if (username && listId && throbberId)
+	{	
+		// Clear the old results out
+		$("#" + listId).html("");
+		
+		showHideThrobber(throbberId, true);
+		
+		userSongs = [];
+	
+		jQuery.getJSON("userTracks.php?lookupUsername=" + encodeURIComponent(username), "",
+			function (response) {
+				if (response.success == 1)
+				{
+					jQuery(response.data).each(function (i) {
+						newElement = "";
+							newElement += "<div class='userSong'>"; // Use the date as the ID, it's unique for this station
+								newElement += "<input type='checkbox' value='" + this.dateUnix + "' />";
+								newElement += " <span class='dateText'>" + this.datePretty + "</span>: <span class='artistName'>" + this.artist + "</span> - <span class='trackName'>" + this.track + "</span>";
+								newElement += " <img class='throbber' src='throbber.gif' id='throbber" + this.dateUnix + "' style='display: none;' />";
+								newElement += " <span class='progress' id='progress" + this.dateUnix + "'></span>";
+							newElement += "</div>";
+						$("#" + listId).append(newElement);
+						
+						// Add the the list of array songs to hold on to
+						userSongs[this.dateUnix] = this;
+					});
+				}
+				else
+				{
+					$("#" + listId).append("Failed");
+				}
+				
+				showHideThrobber(throbberId, false);
+			});
+	}
+}
+
+function doUserScrobble()
+{
+	// Set this up as a function so it can be passed as a callback
+	var processNextCheckboxScrobble = function() {
+		
+		var checkBoxes = document.getElementsByTagName('input');
+		for (i = (checkBoxes.length - 1); i >= 0; i--) // Start with the last element first
+		{
+			var checkBoxType = checkBoxes.item(i).getAttribute('type');
+			if (checkBoxType == 'checkbox')
+			{
+				if (checkBoxes.item(i).checked)
+				{
+					// Get this song
+					var songToScrobble = userSongs[checkBoxes.item(i).value]; // The value is the date!
+					
+					// Call the scrobble
+					var retVal = scrobbleTrack(
+						songToScrobble.artist,
+						"",
+						songToScrobble.track,
+						1,
+						180,
+						songToScrobble.dateUnix,
+						songToScrobble.dateUnix,
+						processNextCheckboxScrobble
+					);
+					
+					// Uncheck this checkbox if the scrobble request was submitted successfully
+					if (retVal == true) {
+						checkBoxes.item(i).checked = false;
+					}
+					
+					// Only process the first checked item! The callback will handle the rest
+					break;
+				}
+			}
+		}
+	}
+	
+	// Start the process...the scrobbles will daisy-chain
+	processNextCheckboxScrobble();
+}
+
+function doUserSelectAll()
+{
+	checkBoxes = document.getElementsByTagName('input');
+	for (i = 0; i < checkBoxes.length; i++)
+	{
+		checkBoxType = checkBoxes.item(i).getAttribute('type');
+		if (checkBoxType == 'checkbox')
+		{
+			checkBoxes.item(i).checked = true;
+		}
+	}
+}
+
+function doArtistSearch()
+{
+	artistSearchText = document.getElementById('artistSearch').value;
+	
+	// Clear the old results out
+	$("#resultsList").html("");
+	
+	showHideThrobber("MainAuto", true);
+	
+	jQuery.getJSON("artistSearch.php?searchText=" + encodeURIComponent(artistSearchText), "",
+		function (data) {
+			jQuery(data).each(function (i) {
+				newElement = "";
+					newElement += "<div class='artist' id='" + this.id + "'>";
+						newElement += "<a href='#' onClick='doReleaseList(\"" + this.id + "\"); return false;'><img class='icon' src='plus.gif' id='icon" + this.id + "' /></a>";
+						newElement += " <span class='artistName'>" + this.name + "</span>";
+						newElement += " <img class='throbber' src='throbber.gif' id='throbber" + this.id + "' style='display: none;' />";
+					newElement += "</div>"
+				$("#resultsList").append(newElement);
+			});
+			
+			showHideThrobber("MainAuto", false);
+		});
+}
+
+function doReleaseList(artistId)
+{
+	icon = document.getElementById("icon" + artistId);
+	releaseList = document.getElementById("releaseList" + artistId);
+
+	if (!releaseList)
+	{
+		showHideThrobber(artistId, true);
+		
+		jQuery.getJSON("releaseList.php?id=" + artistId, "",
+			function (data) {
+				if (data.success == true)
+				{
+					$("#" + artistId).append("<div id='releaseList" + artistId + "'></div>");
+						
+					jQuery(data.releases).each(function (i) {
+						newElement = "";
+						newElement += "<div class='release' id='" + this.id + "'>";
+							newElement += "<a href='#' onClick='doTrackList(\"" + this.id + "\"); return false;'><img class='icon' src='plus.gif' id='icon" + this.id + "' /></a>";
+							newElement += " <span class='releaseName'>" + this.name + "</span>";
+							newElement += " - <a href='#' onClick='scrobbleAlbum(\"" + this.id + "\"); return false;'>(scrobble)</a>";
+							newElement += " <img class='throbber' src='throbber.gif' id='throbber" + this.id + "' style='display: none;' />";
+							newElement += " <span class='progress' id='progress" + this.id + "'></span>";
+						newElement += "</div>";
+						
+						$("#releaseList" + artistId).append(newElement);
+						
+						icon.src = 'minus.gif';
+					});
+				}
+				
+				showHideThrobber(artistId, false);
+			});
+	}
+	else
+	{
+		if (releaseList.style.display != 'none')
+		{
+			icon.src = 'plus.gif';
+			releaseList.style.display = 'none';
+		}
+		else
+		{
+			icon.src = 'minus.gif';
+			releaseList.style.display = 'block';
+		}
+	}
+}
+
+function doTrackList(releaseId)
+{
+	icon = document.getElementById("icon" + releaseId);
+	trackList = document.getElementById("trackList" + releaseId);
+		
+	if (!trackList)
+	{
+		showHideThrobber(releaseId, true);
+		
+		jQuery.getJSON("trackList.php?id=" + releaseId, "",
+			function (data) {
+				if (data.success == true)
+				{
+					$("#" + releaseId).append("<div id='trackList" + releaseId + "'></div>");
+					
+					jQuery(data.tracks).each(function (i) {
+						newElement = "";
+						newElement += "<div class='track' id='" + this.id + "'>";
+							newElement += this.number + ".";
+							newElement += " <span class='trackName'>" + this.name + "</span>";
+							newElement += " - <a href='#' onClick='scrobbleTrack(\"" + escapeChars(data.releaseArtist) + "\", \"" + escapeChars(data.releaseTitle) + "\", \"" + escapeChars(this.name) + "\", " + this.number + ", " + this.duration + ", \"" + this.id + "\"); return false;'>(scrobble)</a>";
+							newElement += " <img class='throbber' src='throbber.gif' id='throbber" + this.id + "' style='display: none;' />";
+							newElement += " <span class='progress' id='progress" + this.id + "'></span>";
+						newElement += "</div>"
+						
+						$("#trackList" + releaseId).append(newElement);
+						
+						icon.src = 'minus.gif';
+					});
+				}
+				
+				showHideThrobber(releaseId, false);
+			});
+	}
+	else
+	{
+		if (trackList.style.display != 'none')
+		{
+			icon.src = 'plus.gif';
+			trackList.style.display = 'none';
+		}
+		else
+		{
+			icon.src = 'minus.gif';
+			trackList.style.display = 'block';
+		}
+	}
+}
+
+function scrobbleAlbum(releaseId)
+{
+	params = "";
+	params += "submissionType=album";
+	params += "&username=" + encodeURIComponent(document.getElementById("username").value);
+	params += "&password=" + encodeURIComponent(document.getElementById("password").value);
+	params += "&albumId=" + releaseId;
+	
+	showHideThrobber(releaseId, true);
+	showProgress(releaseId, "Scrobbling...");
+	
+	jQuery.getJSON("scrobble.php?" + params, "",
+		function (data) {
+			if (data.success == 1)
+			{
+				showProgress(releaseId, "Success!");
+			}
+			else
+			{
+				showProgress(releaseId, "Scrobbling failed with message '" + data.message + "'");
+			}
+	
+			showHideThrobber(releaseId, false);
+		});
+}
+
+function scrobbleTrack(artist, releaseTitle, trackTitle, trackNumber, duration, statusId, scrobbleTime, onCompleteFunc)
+{
+	if (!document.getElementById("username").value) {
+		showProgress(statusId, "Username missing");
+		return false;
+	}
+	
+	if (!document.getElementById("password").value) {
+		showProgress(statusId, "Password missing");
+		return false;
+	}
+	
+	params = "";
+	params += "submissionType=track";
+	params += "&username=" + encodeURIComponent(document.getElementById("username").value);
+	params += "&password=" + encodeURIComponent(document.getElementById("password").value);
+	params += "&artist=" + encodeURIComponent(artist);
+	params += "&track=" + encodeURIComponent(trackTitle);
+	params += "&album=" + encodeURIComponent(releaseTitle);
+	params += "&number=" + trackNumber;
+	params += "&duration=" + duration;
+	
+	if (scrobbleTime)
+	{
+		params += "&time=" + scrobbleTime;
+	}
+	
+	showHideThrobber(statusId, true);
+	showProgress(statusId, "Scrobbling...");
+	
+	jQuery.getJSON("scrobble.php?" + params, "",
+		function (data) {
+			if (data.success == 1)
+			{
+				showProgress(statusId, "Success!");
+			}
+			else
+			{
+				showProgress(statusId, "Scrobbling failed with message '" + data.message + "'");
+			}
+	
+			showHideThrobber(statusId, false);
+			
+			// Call the passed callback function, if provided
+			if (onCompleteFunc)
+			{
+				onCompleteFunc();
+			}
+		});
+	
+	return true;
+}
+
+function manualScrobble()
+{
+	artist = document.getElementById("manualArtist").value;
+	track = document.getElementById("manualTrack").value;
+	album = document.getElementById("manualAlbum").value;
+	
+	scrobbleTrack(artist, album, track, 1, 200, "MainManual");
+}
+
+function showHideThrobber(id, show)
+{
+	throbber = document.getElementById("throbber" + id);
+	if (throbber)
+	{
+		if (show)
+		{
+			throbber.style.display = 'inline';
+		}
+		else
+		{
+			throbber.style.display = 'none';
+		}
+	}
+}
+
+function showProgress(id, text)
+{
+	progressSpan = document.getElementById("progress" + id);
+	if (progressSpan)
+	{
+		progressSpan.innerHTML = text;
+	}
+}
+
+function escapeChars(str)
+{
+	output = unescape(str);
+	
+	output = output.replace(/'/g, "&#39;");
+	output = output.replace(/"/g, "&quot;");
+	
+	return output;
+}
+
+function showWindow()
+{
+	var source = document.getElementById("chooseSource");
+	if (source)
+	{
+		var musicbrainz = document.getElementById("autoScrobble");
+		if (musicbrainz)
+		{
+			if (source.value == "autoScrobble")
+			{
+				musicbrainz.style.display = 'block';
+				document.getElementById("artistSearch").focus();
+			}
+			else
+			{
+				musicbrainz.style.display = 'none';
+			}
+		}
+		var manual = document.getElementById("manualScrobble");
+		if (manual)
+		{
+			if (source.value == "manualScrobble")
+			{
+				manual.style.display = 'block';
+				document.getElementById("manualArtist").focus();
+			}
+			else
+			{
+				manual.style.display = 'none';
+			}
+		}
+		var radio = document.getElementById("radioScrobble");
+		if (radio)
+		{
+			if (source.value == "radioScrobble")
+			{
+				radio.style.display = 'block';
+			}
+			else
+			{
+				radio.style.display = 'none';
+			}
+		}
+		var user = document.getElementById("userScrobble");
+		if (user)
+		{
+			if (source.value == "userScrobble")
+			{
+				user.style.display = 'block';
+				document.getElementById("otherUsername").focus();
+			}
+			else
+			{
+				user.style.display = 'none';
+			}
+		}
+		var library = document.getElementById("libraryScrobble");
+		if (library)
+		{
+			if (source.value == "libraryScrobble")
+			{
+				library.style.display = 'block';
+			}
+			else
+			{
+				library.style.display = 'none';
+			}
+		}
+		var itunes = document.getElementById("itunesScrobble");
+		if (itunes)
+		{
+			if (source.value == "itunesScrobble")
+			{
+				itunes.style.display = 'block';
+			}
+			else
+			{
+				itunes.style.display = 'none';
+			}
+		}
+		
+		document.cookie = 'window=' + source.value + '; expires=Thu, 31 Dec 2020 23:59:59 UTC; path=/';
+	}
+}
+
+function saveLoginDetails()
+{
+	var username = document.getElementById("username").value;
+	var password = document.getElementById("password").value;
+	
+	document.cookie = 'username=' + username + '; expires=Thu, 31 Dec 2020 23:59:59 UTC; path=/';
+	document.cookie = 'password=' + password + '; expires=Thu, 31 Dec 2020 23:59:59 UTC; path=/';
+}
+
+jQuery(document).ready(function() {
+    
+    if (document.cookie)
+    {
+        var cookiePairs = document.cookie.split('; ');
+        for (var i = 0; i < cookiePairs.length; i++)
+        {
+            var nameValueBits = cookiePairs[i].split('=');
+            if (nameValueBits[0] == 'username')
+            {
+                document.getElementById("username").value = nameValueBits[1];
+            }
+            else if (nameValueBits[0] == 'password')
+            {
+                document.getElementById("password").value = nameValueBits[1];
+            }
+            else if (nameValueBits[0] == 'window')
+            {
+                document.getElementById("chooseSource").value = nameValueBits[1];
+                showWindow();
+            }
+        }
+    }
+    
+    $("#artistSearch").keyup(function(event){
+        if(event.keyCode == 13){
+            doArtistSearch();
+        }
+    });
+    $("#otherUsername").keyup(function(event){
+        if(event.keyCode == 13){
+            doUserSearch();
+        }
+    });
+    
+    //$('#content').hide();
+    //$('#hideTempMessage').click(function() {
+    //    $('#content').show();
+    //    $('#tempMessage').hide();
+    //});
+});
+
+</script>
+
+<link href="main.css" rel="stylesheet" type="text/css" />
+<link href="responsive.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+	<div id="topBar">
+		<div id="userLogin">
+			<span id="spanUsername">Username: <input type="text" id="username" value="" onblur="saveLoginDetails();" /></span>
+			<span id="spanPassword">Password: <input type="password" id="password" value="" onblur="saveLoginDetails();" /></span>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+	
+	<div id="mainBody">
+		
+		<div id="contentContainer">
+            
+            <div id="tempMessage" style="display: none;">
+                
+                <h1>If you enjoy the Universal Scrobbler, please read...</h1>
+                
+                <p style="width: 600px; margin-left: 10px;">I did the <a target="_blank" href="http://www.worldvision.com.au/40hourfamine/About.aspx">40 Hour Famine</a> a couple of weeks
+                    ago in an attempt to make a small contribution to battling world hunger. </p>
+                
+                <p style="width: 600px; margin-left: 10px;">The Universal Scrobbler is and always has been provided for free. If you enjoy using this tool, please consider giving back a little by donating
+                    to this very worthy cause. Even your small change will help bring some relief to those in terrible poverty and hunger. You can donate via my
+                    <a target="_blank" href="http://40hf.com/OnDistantShores">fundraising page</a>.</p>
+                
+                <div style="margin-left: 10px;"><input id="hideTempMessage" type="button" value="Start using the Universal Scrobbler" /></div>
+                
+            </div>
+            
+            <div id="content" style="display: block;">
+			
+                <div id="mainMenu">
+                
+                    <h1>Universal Scrobbler</h1>
+                    
+                    <p>Where do you want to scrobble from?
+                        <select id="chooseSource" onChange="showWindow();">
+                            <option value="">- Choose one -</option>
+                            <option value="autoScrobble">MusicBrainz</option>
+                            <option value="radioScrobble">BBC Radio</option>
+                            <option value="userScrobble">Another user</option>
+                            <option value="manualScrobble">Scrobble manually</option>
+                            <option value="itunesScrobble">iTunes</option>
+                            <!--option value="libraryScrobble">Last.FM library</option-->
+                        </select></p>
+                        
+                </div>
+                
+                <div id="tools">
+                    
+                    <div id="autoScrobble">	
+                        <h3>MusicBrainz Scrobble</h3>
+                        
+                        <p>Artist search: <input type="text" id="artistSearch" value="" size="30" />
+                        <input type="button" value="Search" onClick="doArtistSearch();" /></p>
+                        
+                        <img class='throbber' src='throbber.gif' id='throbberMainAuto' style='display: none;' />
+                        
+                        <div id="resultsList">
+                        </div>
+                    </div>
+                    
+                    <div id="radioScrobble">	
+                        <h3>BBC Radio Scrobble</h3>
+                        
+                        <p><select id="radioStation">
+                            <option value="bbcradio1">BBC Radio 1</option>
+                            <option value="bbcradio2">BBC Radio 2</option>
+                            <option value="bbc6music">BBC Radio 6</option>
+                            <option value="bbc1xtra">BBC 1 Xtra</option>
+                        </select></p>
+                        
+                        <p><input type="button" value="Search" onClick="doRadioSearch();" />
+                        <input type="button" value="Scrobble selected" onClick="doUserScrobble();" />
+                        <input type="button" value="Select all" onClick="doUserSelectAll();" /></p>
+                        
+                        <img class='throbber' src='throbber.gif' id='throbberMainRadio' style='display: none;' />
+                        
+                        <div id="radioList">
+                        </div>
+                    </div>
+    
+                    <div id="userScrobble">
+                        <h3>User Scrobble</h3>
+    
+                        <p>Username: <input type="text" id="otherUsername" /></p>
+    
+                        <p><input type="button" value="Search" onClick="doUserSearch();" />
+                        <input type="button" value="Scrobble selected" onClick="doUserScrobble();" />
+                        <input type="button" value="Select all" onClick="doUserSelectAll();" /></p>
+    
+                        <img class='throbber' src='throbber.gif' id='throbberMainUser' style='display: none;' />
+    
+                        <div id="userList">
+                        </div>
+                    </div>
+                    
+                    <div id="manualScrobble">
+                        <h3>Manual Scrobble</h3>
+                        
+                        <p>Artist: <input type="text" id="manualArtist" value="" size="30" /></p>
+                        <p>Track: <input type="text" id="manualTrack" value="" size="30" /></p>
+                        <p>Album: <input type="text" id="manualAlbum" value="" size="30" /></p>
+                        
+                        <p align="right"><input type="button" value="Scrobble" onClick="manualScrobble();" /></p>
+                        
+                        <img class='throbber' src='throbber.gif' id='throbberMainManual' style='display: none;' /> <span class='progress' id='progressMainManual'></span>
+                    </div>
+                    
+                    <div id="itunesScrobble">
+                        <h3>iTunes Scrobbling</h3>
+                        
+                        <p><a href="scrobbleselected.scpt">Download the script</a></p>
+                        
+                        <p>This is a script developed by a fellow Universal Scrobbler user, <a href="http://www.last.fm/user/drailskid">drailskid</a>.
+                            It is an iTunes Applescript plugin which automatically scrobbles any selected tracks in iTunes to your
+                            account when it is run. It will work as long as there is a keychain entry in the default keychain with
+                            the name "last.fm" with your username and password. If you're not familiar with AppleScripts in iTunes,
+                            you can read about them <a href="http://dougscripts.com/itunes/itinfo/asitbasics.php">here</a>.</p>
+                        
+                        <p>This is a Mac-only script, and as a Windows user I have not been able to use it, so I cannot guarantee it works.
+                            If you have any questions, please direct them to the author at <a href="mailto:drailskid@yahoo.com">drailskid@yahoo.com</a>.</p>
+                        
+                        <p>Props to <a href="http://www.last.fm/user/drailskid">drailskid</a> for this script and for sharing his hard work!
+                            Similarly, if you have any US-related scripts/online tools you'd be happy to share, please pass them on to me.</p>
+                    </div>
+                    
+                    <div id="libraryScrobble">
+                        <h3>Last.fm Library Scrobbling</h3>
+                        
+                        <p>Coming soon (hopefully!)</p>
+                    </div>
+                    
+                    <div class="clear"></div>
+                    
+                </div>
+    
+            </div>
+        
+        </div>
+		
+		<div id="disclaimersContainer"><div id="disclaimers">
+				
+			<p><b>753,888</b> hits and <b>29,437,094</b>
+				scrobbles since December 18th, 2008.</p>
+		
+			<div id="paypal">
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="image" src="https://www.paypal.com/en_AU/i/btn/x-click-butcc-donate.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+					<img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+					<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+				</form>
+			</div>
+					
+			<p>Please be aware that these tools are still a work in progress. When I get time I will be updating them
+				and cleaning them up. If you're a regular user of this tool, please join the
+				<a target="blank" href="http://www.last.fm/group/Universal+Scrobbler">Universal Scrobbler</a> Last.fm group.
+				If you have any feedback/feature requests/bug reports, please send them to this group, or if you'd like
+				to contact me directly, you can use my Last.fm account,
+				<a target="blank" href="http://www.last.fm/user/OnDistantShores">OnDistantShores</a>.</p>
+		
+			<p>Recent updates:
+				<ul>
+					<li>August 23rd, 2011 - added an updated version of the iTunes script, provided by <a href="http://last.fm/user/drailskid">drailskid</a>.</li>
+					<li>July 10th, 2011 - removed the stupid advertising, it wasn't worth the annoyance. This work is now entirely funded by donations - if you use this tool regularly I would really appreciate it :-)</li>
+					<li>April 1st, 2011 - relocated to a new domain! Added a few little UI niceties in response to requests. Also, an iPhone app is on the way...</li>
+					<li>February 19th, 2011 - removed MySpace scrobbler as it no longer works with the new MySpace music player. Fixed some escaping issues.</li>
+					<li>June 18th, 2009 - added iTunes scrobbling script.</li>
+					<li>June 17th, 2009 - fixed problem with remembering username & password.</li>
+					<li>April 13th, 2009 - added scrobbling from another user, fixed errors with large list scrobbling
+					and fixed ampersand scrobbling.</li>
+					<li>March 21st, 2009 - sorted out all the problems with UTF-8 characters messing things up.
+					See the group for more details.</li>
+					<li>March 1st, 2009 - created the <a target="blank" href="http://www.last.fm/group/Universal+Scrobbler">Universal Scrobbler</a>
+					Last.fm group. If you're a regular user, please join!</li>
+					<li>March 1st, 2009 - fixed annoying problems with special characters, more graceful handling of
+					MusicBrainz errors and cleaned up the display a little.</li>
+				</ul>
+			</p>
+				
+			<p><b>Disclaimer:</b> I believe in having accurate stats. It's this belief that gave birth to tools like
+				this. However, they do have the potential to be misused (e.g. boosting artist stats). Please only
+				scrobble songs that you have geniunely listened to. If you don't feel you can adhere to this
+				rule, please leave this tool alone. I don't condone any other use of these tools.</p>
+				
+			<p>Like Last.fm tools? See also <a href="http://spotimail.invitationstation.org" target="blank">Spotimail</a>,
+				<a href="http://legalfreedownloads.fm.invitationstation.org" target="blank">legalfreedownloads.fm</a>
+                and my <a href="http://lastfmstats.livefrombmore.com/" target="blank">other stats scripts</a>.</p>
+
+		</div></div>
+		
+	</div>
+	
+	
+	<script type="text/javascript">
+		
+        
+        
+	
+	</script>
+	
+	<!--<div id="advertising">
+		<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=196404&bid=478637" type="text/javascript"></SCRIPT>
+		<noscript><a href="http://www.bidvertiser.com">affiliate program</a></noscript>
+	</div>-->
+
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-8543924-2");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+	
+</body>
+</html>
+
