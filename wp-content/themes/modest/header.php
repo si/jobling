@@ -69,7 +69,7 @@
 		<div class="wrapper" id="header">
 			<div class="container">
 				<?php if (of_get_option('logo') != '') { ?>
-				<a href="<?php echo site_url(); ?>" title="<?php bloginfo('name'); ?>" class="left the_logo">
+				<a href="<?php echo site_url(); ?>" title="Back home" class="left the_logo">
 					<img src="<?php echo stripslashes(of_get_option('logo')); ?>" alt="<?php bloginfo('name'); ?>" id="logo" />
 				</a>
 					<?php } else { ?>
